@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTasks } from '../redux/slices/taskSlice.ts';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import { RootState } from '../redux/store.tsx';
+import api from "../services/api.ts"
+import { ModalProps } from '../types/index.ts';
 
-interface ModalProps {
-  task: any;
-  handleClose: () => void;
-  token: string | null;
-  refreshTasks: any;
-}
 
 const Modal: React.FC<ModalProps> = ({ task, handleClose, token, refreshTasks }) => {
   const dispatch = useDispatch();
@@ -26,7 +19,7 @@ const Modal: React.FC<ModalProps> = ({ task, handleClose, token, refreshTasks })
 
   const fetchTasksAgain = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/tasks', {
+      const res = await api.get('/tasks', {
         headers: { Authorization: `Bearer ${token}` },
       });
       dispatch(refreshTasks(res.data.tasks || []));
@@ -44,15 +37,15 @@ const Modal: React.FC<ModalProps> = ({ task, handleClose, token, refreshTasks })
 
     try {
       if (task) {
-        await axios.put(
-          `http://localhost:8000/api/tasks/${task._id}`,
+        await api.put(
+          `/tasks/${task._id}`,
           { title, description, status },
           { headers: { Authorization: `Bearer ${token}` } }
         );
         toast.success('Task updated successfully!');
       } else {
-        await axios.post(
-          'http://localhost:8000/api/tasks/create',
+        await api.post(
+          '/tasks/create',
           { title, description, status },
           { headers: { Authorization: `Bearer ${token}` } }
         );

@@ -55,7 +55,7 @@ const TaskDetailsPage: React.FC = () => {
     try {
       setSubmitting(true);
       const res = await api.post(
-        `/api/comments/${id}`,
+        `/comments/${id}`,
         { text: newComment },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -48,3 +48,10 @@ export interface TaskState {
     token: string | null;
   }
   
+  export interface ModalProps {
+    task: any;
+    handleClose: () => void;
+    token: string | null;
+    refreshTasks: any;
+  }
+  

@@ -18,7 +18,7 @@ exports.createTask = async (req, res) => {
   }
 };
 
-// Get all tasks (with filters + pagination)
+// Get all tasks (with filters and  pagination)
 exports.getTasks = async (req, res) => {
   const { status, page = 1 } = req.query;
   const limit = 5;
@@ -62,12 +62,12 @@ exports.getTaskById = async (req, res) => {
 
   exports.updateTask = async (req, res) => {
     const { id } = req.params;
-    const { title, description, status } = req.body; // ✅ destructure from req.body
+    const { title, description, status } = req.body; 
   
     try {
       const task = await Task.findOneAndUpdate(
         { _id: id, createdBy: req.user._id },
-        { title, description, status }, // ✅ these now exist
+        { title, description, status }, 
         { new: true, runValidators: true }
       );
   
@@ -83,7 +83,7 @@ exports.getTaskById = async (req, res) => {
   
 
   exports.deleteTask = async (req, res) => {
-    const { id } = req.params; // <-- Add this
+    const { id } = req.params; 
     try {
       const task = await Task.findOneAndDelete({ _id: id, createdBy: req.user._id });
       if (!task) return res.status(404).json({ message: 'Task not found or not yours' });

@@ -49,7 +49,7 @@ const LoginPage = () => {
     } catch (err: any) {
       console.error('Login error:', err.response?.data || err.message);
   
-      const message = err.response?.data?.message || 'Invalid email or password. Please try again.';
+      const message = err.response?.data?.message || 'something went wrong please try again.';
       setLoginError(message);
       toast.error(message);
     }
@@ -62,7 +62,7 @@ const LoginPage = () => {
           <div className="w-full max-w-md">
             <h1 className="text-3xl md:text-4xl font-bold text-green-600 mb-3">Welcome Back 👋</h1>
             <p className="text-gray-700 mb-6 text-sm md:text-base">
-              Login to your <span className="font-semibold text-green-700">Task Tracker</span> dashboard and crush your goals!
+              Login to your <span className="font-semibold text-green-700">Task Tracker</span> and start trackng your app!
             </p>
   
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">

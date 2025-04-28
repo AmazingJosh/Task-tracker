@@ -1,8 +1,6 @@
 const Comment = require('../models/Comment');
 const Task = require('../models/Task');
 
-// Add comment to a task
-// Add comment to a task
 exports.addComment = async (req, res) => {
   const { taskId } = req.params;
   const { text } = req.body;
@@ -17,7 +15,6 @@ exports.addComment = async (req, res) => {
       createdBy: req.user._id,
     });
 
-    // ✨ Populate the createdBy field before sending it back
     comment = await comment.populate('createdBy', 'name email');
 
     res.status(201).json(comment);
@@ -27,7 +24,6 @@ exports.addComment = async (req, res) => {
 };
 
 
-// Get comments for a task
 exports.getComments = async (req, res) => {
   const { taskId } = req.params;
 
@@ -42,10 +38,6 @@ exports.getComments = async (req, res) => {
   }
 };
 
-
-
-
-// Delete a comment
 exports.deleteComment = async (req, res) => {
   const { id } = req.params;
 

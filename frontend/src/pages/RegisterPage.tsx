@@ -48,7 +48,7 @@ const RegisterPage = () => {
 
   const onSubmit = async (data: RegisterFormData) => {
     try {
-      setIsSubmitting(true); // Start submission
+      setIsSubmitting(true); 
   
       const res = await api.post('/auth/register', {
         name: data.name,

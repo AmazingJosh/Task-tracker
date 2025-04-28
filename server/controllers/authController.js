@@ -6,13 +6,13 @@ const register = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    // Check if the user already exists
+    // Checks if the user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: 'Email is already in use.' });
     }
 
-    // Hash the password
+    // Hashes the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user in the database
@@ -27,12 +27,10 @@ const register = async (req, res) => {
 
     // Create a JWT token after successful registration
     const token = jwt.sign(
-      { id: newUser._id, email: newUser.email },  // You can include more info as needed
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }  // Token expires in 1 hour
+      { id: newUser._id, email: newUser.email }, 
+      { expiresIn: '1h' }  
     );
 
-    // Send the token and user data in the response
     res.status(201).json({
       token,
       message: 'User registered successfully!',

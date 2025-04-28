@@ -10,7 +10,7 @@ import ErrorBoundary from './components/ErrorBoundary.jsx';
 const App = () => {
   return (
     <Router>
-      {/* <ErrorBoundary> */}
+      <ErrorBoundary>
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -24,7 +24,7 @@ const App = () => {
           />
           <Route path="/tasks/:id" element={<TaskDetailsPage />} />
         </Routes>
-      {/* </ErrorBoundary> */}
+      </ErrorBoundary>
     </Router>
   );
 };

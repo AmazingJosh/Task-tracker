@@ -21,7 +21,7 @@ const TaskListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [statusFilter, setStatusFilter] = useState('all');
-  const [loading, setLoading] = useState(false); // Added loading state
+  const [loading, setLoading] = useState(false); 
 
   const fetchTasks = async (page = 1, status = 'all') => {
     if (!token) return;

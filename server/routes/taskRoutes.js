@@ -12,7 +12,6 @@ const {
 // All routes are protected
 router.use(auth);
 
-// GET /api/tasks
 router.get('/', getTasks);
 router.post('/create', createTask);
 router.get('/:id', getTaskById);
