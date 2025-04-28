@@ -129,7 +129,7 @@ const TaskListPage = () => {
         {/* Spinner */}
         {loading ? (
           <div className="flex justify-center items-center min-h-[200px]">
-            <ClipLoader size={50} color="#3B82F6" />
+            <ClipLoader size={30} color="#3B82F6" />
           </div>
         ) : (
           <div className="bg-white rounded-lg shadow p-4 space-y-4">

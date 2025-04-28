@@ -55,8 +55,9 @@ const RegisterPage = () => {
         email: data.email,
         password: data.password,
       });
-  
       const { token, message } = res.data;
+      toast.success(message || 'account successfully created')
+
       localStorage.setItem('token', token);
   
       // Dispatch token to Redux
@@ -65,7 +66,10 @@ const RegisterPage = () => {
       console.log(message, "message")
   
       reset(); // Clear form fields
-      navigate('/tasks');
+      
+      setTimeout(() => {
+        navigate('/tasks')
+      }, 2000); 
 
 
     } catch (error: any) {

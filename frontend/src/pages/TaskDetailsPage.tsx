@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store.tsx';
@@ -82,7 +81,7 @@ const TaskDetailsPage: React.FC = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <ClipLoader size={50} color="#3b82f6" />
+        <ClipLoader size={30} color="#3b82f6" />
       </div>
     );
   }
@@ -128,7 +127,7 @@ const TaskDetailsPage: React.FC = () => {
             className="mt-3 bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-colors flex items-center justify-center"
           >
             {submitting ? (
-      <ClipLoader size={50} color="#3b82f6" />
+      <ClipLoader size={30} color="#3b82f6" />
     ) : null}
             {submitting ? 'Posting...' : 'Post Comment'}
           </button>
