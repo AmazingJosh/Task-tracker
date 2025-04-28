@@ -6,6 +6,7 @@ import TaskListPage from './pages/TasklistPage.tsx';
 import ProtectedRoute from './components/ProtectRoute.tsx';
 import TaskDetailsPage from './pages/TaskDetailsPage.tsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/tasks/:id" element={<TaskDetailsPage />} />
         </Routes>
       </ErrorBoundary>
+      <ToastContainer/>
     </Router>
   );
 };

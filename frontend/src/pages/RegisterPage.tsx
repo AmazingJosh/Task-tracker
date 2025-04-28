@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
 import { Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'; 
@@ -10,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { setToken } from '../redux/slices/authSlice.ts';
 import { ClipLoader } from 'react-spinners';
 import api from "../services/api.ts"
+import { ToastContainer } from 'react-toastify';
 
 const registerSchema = z
   .object({
@@ -62,17 +62,34 @@ const RegisterPage = () => {
       // Dispatch token to Redux
       dispatch(setToken(token));
   
-      toast.success(message || 'Registered successfully! 🎉');
+      console.log(message, "message")
   
       reset(); // Clear form fields
       navigate('/tasks');
+
+
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
+      console.error('Registration failed:', error);
+    
+      let errorMessage = 'Registration failed. Please try again.';
+    
+      if (error.response) {
+        // backend responded with an error
+        errorMessage = error.response.data?.message || errorMessage;
+      } else if (error.request) {
+        // request was made but no response
+        errorMessage = 'No response from server. Please check your internet connection.';
+      } else {
+        // something else happened
+        errorMessage = error.message || errorMessage;
+      }
+    
       toast.error(errorMessage);
-      console.error('Registration failed:', errorMessage);
-    } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
+
+      
     }
+    
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
@@ -150,6 +167,7 @@ const RegisterPage = () => {
           </button>
         </form>
       </div>
+      <ToastContainer/>
     </div>
   );
 };
