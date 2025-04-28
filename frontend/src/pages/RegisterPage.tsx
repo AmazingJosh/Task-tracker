@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { setToken } from '../redux/slices/authSlice.ts';
 import { ClipLoader } from 'react-spinners';
+import api from "../services/api.ts"
 
 const registerSchema = z
   .object({
@@ -48,32 +49,31 @@ const RegisterPage = () => {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       setIsSubmitting(true); // Start submission
-      const res = await axios.post('http://localhost:8000/api/auth/register', {
+  
+      const res = await api.post('/auth/register', {
         name: data.name,
         email: data.email,
         password: data.password,
       });
-
+  
       const { token, message } = res.data;
       localStorage.setItem('token', token);
-
-
+  
       // Dispatch token to Redux
       dispatch(setToken(token));
-
-      toast.success(message || 'Registered successfully! 🎉'); 
-
-      reset(); // i am clearing form fields
+  
+      toast.success(message || 'Registered successfully! 🎉');
+  
+      reset(); // Clear form fields
       navigate('/tasks');
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
-      toast.error(errorMessage); 
+      toast.error(errorMessage);
       console.error('Registration failed:', errorMessage);
     } finally {
-      setIsSubmitting(false); 
+      setIsSubmitting(false);
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">

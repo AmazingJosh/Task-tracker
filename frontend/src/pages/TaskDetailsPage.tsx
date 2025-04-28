@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store.tsx';
 import { ClipLoader } from 'react-spinners';
 import {Task, Comment } from "../types/index.ts"
+import api from "../services/api.ts"
 
 
 
@@ -26,15 +27,16 @@ const TaskDetailsPage: React.FC = () => {
     const fetchTaskAndComments = async () => {
       try {
         setLoading(true);
+  
         const [taskRes, commentRes] = await Promise.all([
-          axios.get(`http://localhost:8000/api/tasks/${id}`, {
+          api.get(`/tasks/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get(`http://localhost:8000/api/comments/${id}`, {
+          api.get(`/comments/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
-
+  
         setTask(taskRes.data);
         setComments(commentRes.data);
       } catch (err: any) {
@@ -43,17 +45,17 @@ const TaskDetailsPage: React.FC = () => {
         setLoading(false);
       }
     };
-
+  
     if (token) fetchTaskAndComments();
   }, [id, token]);
-
+  
   const handleAddComment = async () => {
     if (!newComment.trim()) return;
 
     try {
       setSubmitting(true);
-      const res = await axios.post(
-        `http://localhost:8000/api/comments/${id}`,
+      const res = await api.post(
+        `/api/comments/${id}`,
         { text: newComment },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -68,7 +70,7 @@ const TaskDetailsPage: React.FC = () => {
 
   const handleDeleteComment = async (commentId: string) => {
     try {
-      await axios.delete(`http://localhost:8000/api/comments/delete/${commentId}`, {
+      await api.delete(`/comments/delete/${commentId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setComments((prev) => prev.filter((comment) => comment._id !== commentId));

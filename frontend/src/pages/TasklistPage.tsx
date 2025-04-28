@@ -6,7 +6,8 @@ import { setTasks } from '../redux/slices/taskSlice.ts';
 import { RootState } from '../redux/store.tsx';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import ClipLoader from "react-spinners/ClipLoader"; // Spinner package
+import ClipLoader from "react-spinners/ClipLoader"; 
+import api from "../services/api.ts"
 
 const TaskListPage = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const TaskListPage = () => {
     if (!token) return;
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:8000/api/tasks?page=${page}&status=${status}`, {
+      const res = await api.get(`/tasks?page=${page}&status=${status}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       dispatch(setTasks(res.data.tasks || []));
@@ -56,7 +57,7 @@ const TaskListPage = () => {
   const handleDeleteTask = async (taskId: string) => {
     if (!token) return;
     try {
-      await axios.delete(`http://localhost:8000/api/tasks/${taskId}`, {
+      await api.delete(`/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('Task deleted successfully');
