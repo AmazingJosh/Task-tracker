@@ -39,8 +39,9 @@ Installation and Setup Instructions
 
 1. Clone the repository
 
-git clone https://github.com/amazingjosh/task-tracker.git
-cd task-tracker
+https://github.com/AmazingJosh/Task-tracker.git
+
+there are two directories on this application, the frontend and the server.
 
 cd frontend 
 
@@ -94,6 +95,8 @@ Backend Setup
 cd server
 
 npm or yarn install
+
+npm start
 
 Make sure your backend server (Node.js/Express API) is running.
 It should expose endpoints like:
