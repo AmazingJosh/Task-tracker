@@ -1,6 +1,6 @@
 Task Manager App
 
-A full-stack Task-Tracker application built with React, Redux Toolkit, TypeScript, React Hook Form, Zod validation, Toastify for notifications, and a custom Node.js/Express API backend.
+A full-stack Task-Tracker application built with React, Redux Toolkit, TypeScript, React Hook Form, Zod validation, Toastify for notifications, and a custom Node.js/Express API backend, and mongodb for database.
 
 
 ---
