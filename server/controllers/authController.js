@@ -27,10 +27,11 @@ const register = async (req, res) => {
 
     // Create a JWT token after successful registration
     const token = jwt.sign(
-      { id: newUser._id, email: newUser.email }, 
-      { expiresIn: '1h' }  
+      { id: newUser._id, email: newUser.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '7h' }
     );
-
+    
     res.status(201).json({
       token,
       message: 'User registered successfully!',
