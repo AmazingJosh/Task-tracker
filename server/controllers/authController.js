@@ -3,26 +3,44 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
+  const { name, email, password } = req.body;
+
   try {
-    const { name, email, password } = req.body;
+    // Check if the user already exists
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: 'Email is already in use.' });
+    }
 
-    // Check if user exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser)
-      return res.status(400).json({ message: 'Email already registered' });
-
-    // Hash password
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    // Create a new user in the database
+    const newUser = new User({
       name,
       email,
       password: hashedPassword,
     });
 
-    return res.status(201).json({ message: 'User created successfully' });
-  } catch (err) {
-    return res.status(500).json({ message: 'Server error', error: err.message });
+    // Save the user to the database
+    await newUser.save();
+
+    // Create a JWT token after successful registration
+    const token = jwt.sign(
+      { id: newUser._id, email: newUser.email },  // You can include more info as needed
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }  // Token expires in 1 hour
+    );
+
+    // Send the token and user data in the response
+    res.status(201).json({
+      token,
+      message: 'User registered successfully!',
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error.' });
   }
 };
 

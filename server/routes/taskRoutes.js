@@ -14,7 +14,7 @@ router.use(auth);
 
 // GET /api/tasks
 router.get('/', getTasks);
-router.post('/', createTask);
+router.post('/create', createTask);
 router.get('/:id', getTaskById);
 router.delete('/:id', deleteTask);
 router.put('/:id', updateTask);
