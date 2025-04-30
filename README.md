@@ -70,7 +70,6 @@ src/
 ├── redux/            # Redux slices and store
 ├── services/         # API calls (axios instance)
 ├── types/            # TypeScript types
-├── utils/            # Utility functions (optional)
 ├── App.tsx           # App routes and layout
 ├── main.tsx          # App entry point
 └── index.css         # Global styles (TailwindCSS)
